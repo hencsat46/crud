@@ -16,3 +16,8 @@ type Response struct {
 	Status  int
 	Payload interface{}
 }
+
+type MongoData struct {
+	Key   string
+	Value string
+}
