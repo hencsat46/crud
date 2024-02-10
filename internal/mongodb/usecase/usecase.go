@@ -13,6 +13,7 @@ type usecase struct {
 type RepositoryInterfaces interface {
 	CreateMongo(models.MongoData) error
 	ReadMongo() ([]models.MongoData, error)
+	UpdateMongo(models.MongoData) error
 }
 
 func NewUsecase(repo RepositoryInterfaces) handler.UsecaseInterfaces {
@@ -31,6 +32,15 @@ func (u *usecase) ReadMongo() ([]models.MongoData, error) {
 
 func (u *usecase) CreateMongo(data models.MongoData) error {
 	if err := u.repo.CreateMongo(data); err != nil {
+		log.Println(err)
+		return err
+	}
+
+	return nil
+}
+
+func (u *usecase) UpdateMongo(data models.MongoData) error {
+	if err := u.repo.UpdateMongo(data); err != nil {
 		log.Println(err)
 		return err
 	}

@@ -47,7 +47,7 @@ func (r *repository) ReadMongo() ([]models.MongoData, error) {
 	for cursor.Next(context.Background()) {
 		var elem models.MongoData
 		if err := cursor.Decode(&elem); err != nil {
-			log.Println("Парсинг курсора пизда")
+			log.Println("Парсингу курсора пизда")
 			return nil, err
 		}
 
@@ -55,6 +55,20 @@ func (r *repository) ReadMongo() ([]models.MongoData, error) {
 	}
 
 	return results, nil
+}
+
+func (r *repository) UpdateMongo(data models.MongoData) error {
+
+	filter := bson.D{{"key", data.Key}}
+
+	update := bson.D{{"$set", bson.D{{"value", data.Value}}}}
+
+	if _, err := r.mongoConnection.Database("temp").Collection("temp").UpdateOne(context.Background(), filter, update); err != nil {
+		log.Println(err)
+		return err
+	}
+
+	return nil
 }
 
 func (r *repository) countDocuments() (int64, error) {
