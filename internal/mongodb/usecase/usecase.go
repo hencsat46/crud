@@ -14,6 +14,7 @@ type RepositoryInterfaces interface {
 	CreateMongo(models.MongoData) error
 	ReadMongo() ([]models.MongoData, error)
 	UpdateMongo(models.MongoData) error
+	DeleteMongo(models.MongoData) error
 }
 
 func NewUsecase(repo RepositoryInterfaces) handler.UsecaseInterfaces {
@@ -41,6 +42,15 @@ func (u *usecase) CreateMongo(data models.MongoData) error {
 
 func (u *usecase) UpdateMongo(data models.MongoData) error {
 	if err := u.repo.UpdateMongo(data); err != nil {
+		log.Println(err)
+		return err
+	}
+
+	return nil
+}
+
+func (u *usecase) DeleteMongo(data models.MongoData) error {
+	if err := u.repo.DeleteMongo(data); err != nil {
 		log.Println(err)
 		return err
 	}

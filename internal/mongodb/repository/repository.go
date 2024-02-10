@@ -57,6 +57,16 @@ func (r *repository) ReadMongo() ([]models.MongoData, error) {
 	return results, nil
 }
 
+func (r *repository) countDocuments() (int64, error) {
+	count, err := r.mongoConnection.Database("temp").Collection("temp").CountDocuments(context.Background(), options.Find().SetSort(bson.D{}))
+
+	if err != nil {
+		return -1, err
+	}
+
+	return count, nil
+}
+
 func (r *repository) UpdateMongo(data models.MongoData) error {
 
 	filter := bson.D{{"key", data.Key}}
@@ -71,12 +81,12 @@ func (r *repository) UpdateMongo(data models.MongoData) error {
 	return nil
 }
 
-func (r *repository) countDocuments() (int64, error) {
-	count, err := r.mongoConnection.Database("temp").Collection("temp").CountDocuments(context.Background(), options.Find().SetSort(bson.D{}))
+func (r *repository) DeleteMongo(data models.MongoData) error {
+	filter := bson.D{{"key", data.Key}}
 
-	if err != nil {
-		return -1, err
+	if _, err := r.mongoConnection.Database("temp").Collection("temp").DeleteOne(context.Background(), filter); err != nil {
+		return err
 	}
 
-	return count, nil
+	return nil
 }

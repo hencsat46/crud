@@ -14,6 +14,7 @@ type UsecaseInterfaces interface {
 	ReadMongo() ([]models.MongoData, error)
 	CreateMongo(models.MongoData) error
 	UpdateMongo(models.MongoData) error
+	DeleteMongo(models.MongoData) error
 }
 
 func NewHandler(usecase UsecaseInterfaces) *handler {
@@ -62,8 +63,25 @@ func (h *handler) UpdateMongo(ctx echo.Context) error {
 	return ctx.JSON(200, &models.Response{Status: 200, Payload: "Update ok"})
 }
 
+func (h *handler) DeleteMongo(ctx echo.Context) error {
+	var rawData MongoDTO
+
+	if err := ctx.Bind(&rawData); err != nil {
+		return ctx.JSON(400, &models.Response{Status: 400, Payload: "Bad json"})
+	}
+
+	data := models.MongoData{Key: rawData.Key, Value: rawData.Value}
+
+	if err := h.usecase.DeleteMongo(data); err != nil {
+		return ctx.JSON(500, &models.Response{Status: 500, Payload: "Server error"})
+	}
+
+	return ctx.JSON(200, &models.Response{Status: 200, Payload: "Delete Ok"})
+}
+
 func (h *handler) CreateRoutes(e *echo.Echo) {
 	e.GET("/readmongo", h.ReadMongo)
 	e.POST("createmongo", h.CreateMongo)
 	e.PUT("/updatemongo", h.UpdateMongo)
+	e.DELETE("/deletemongo", h.DeleteMongo)
 }
