@@ -28,7 +28,10 @@ func (r *repository) CreateMongo(value models.MongoData) error {
 }
 
 func (r *repository) ReadMongo() ([]models.MongoData, error) {
-	cursor, err := r.mongoConnection.Database("temp").Collection("temp").Find(context.Background(), options.Find().SetSort(bson.D{}))
+
+	filter := bson.M{}
+
+	cursor, err := r.mongoConnection.Database("temp").Collection("temp").Find(context.Background(), filter, options.Find())
 	if err != nil {
 		log.Println("haha")
 		return nil, err
@@ -41,9 +44,14 @@ func (r *repository) ReadMongo() ([]models.MongoData, error) {
 	}
 	results := make([]models.MongoData, count)
 
-	if err = cursor.All(context.Background(), &results); err != nil {
-		log.Println("pizda")
-		return nil, err
+	for cursor.Next(context.Background()) {
+		var elem models.MongoData
+		if err := cursor.Decode(&elem); err != nil {
+			log.Println("Парсинг курсора пизда")
+			return nil, err
+		}
+
+		results = append(results, elem)
 	}
 
 	return results, nil

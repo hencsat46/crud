@@ -28,3 +28,12 @@ func (u *usecase) ReadMongo() ([]models.MongoData, error) {
 
 	return result, nil
 }
+
+func (u *usecase) CreateMongo(data models.MongoData) error {
+	if err := u.repo.CreateMongo(data); err != nil {
+		log.Println(err)
+		return err
+	}
+
+	return nil
+}
