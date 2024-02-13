@@ -6,10 +6,10 @@ import (
 	repositoryMongo "crud/internal/mongodb/repository"
 	usecaseMongo "crud/internal/mongodb/usecase"
 
+	_ "crud/docs"
 	domainsPostgres "crud/internal/postgres/domains"
 	repositoryPostgres "crud/internal/postgres/repository"
 	usecasePostgres "crud/internal/postgres/usecase"
-
 	domainsRedis "crud/internal/redis/domains"
 	repositoryRedis "crud/internal/redis/repository"
 	usecaseRedis "crud/internal/redis/usecase"
@@ -17,7 +17,15 @@ import (
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
+
+//	@title			Жопа
+//	@version		1.0
+//	@description	Какая-то ебень
+
+//	@host		localhost:5000
+//	@BasePath	/
 
 func main() {
 
@@ -54,6 +62,8 @@ func main() {
 	handler.CreateRoutes(e)
 	domainsRedis.CreateRoutes(e)
 	handlerMongo.CreateRoutes(e)
+
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	e.Start(":3000")
 }

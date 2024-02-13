@@ -23,6 +23,15 @@ func NewDomains(usecase UsecaseInterfaces) *domains {
 	return &domains{usecase: usecase}
 }
 
+// ShowAccount godoc
+//
+//	@Summary		Create redis data
+//	@Description	You can add data to redis database via this endpoint
+//	@ID				get-string-by-int
+//	@Accept			json
+//	@Produce		json
+//	@Param			id	path		int	true	"Account ID"
+//	@Router			/createredis [post]
 func (d *domains) CreateRedis(ctx echo.Context) error {
 
 	var jsonData redisDTO

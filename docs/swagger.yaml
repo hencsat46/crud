@@ -1,0 +1,25 @@
+basePath: /
+host: localhost:5000
+info:
+  contact: {}
+  description: Какая-то ебень
+  title: Жопа
+  version: "1.0"
+paths:
+  /createredis:
+    post:
+      consumes:
+      - application/json
+      description: get string by ID
+      operationId: get-string-by-int
+      parameters:
+      - description: Account ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Create redis data
+swagger: "2.0"
