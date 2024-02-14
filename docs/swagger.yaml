@@ -1,5 +1,16 @@
 basePath: /
 definitions:
+  domains.PostgresDTO:
+    properties:
+      Album:
+        type: string
+      Author:
+        type: string
+      Length:
+        type: integer
+      Name:
+        type: string
+    type: object
   domains.redisDTO:
     properties:
       Key:
@@ -40,6 +51,25 @@ paths:
       summary: Create mongo data
       tags:
       - Mongo
+  /createpostgres:
+    post:
+      consumes:
+      - application/json
+      description: You can add data to postgres database via this endpoint
+      operationId: create-postgres
+      parameters:
+      - description: Json for creating data
+        in: body
+        name: JsonExample
+        required: true
+        schema:
+          $ref: '#/definitions/domains.PostgresDTO'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create postgres data
+      tags:
+      - Postgres
   /createredis:
     post:
       consumes:
@@ -78,6 +108,25 @@ paths:
       summary: Delete mongo data
       tags:
       - Mongo
+  /deletepostgres:
+    delete:
+      consumes:
+      - application/json
+      description: You can delete data from postgres database via this endpoint
+      operationId: delete-postgres
+      parameters:
+      - description: Json for deleting data
+        in: body
+        name: JsonExample
+        required: true
+        schema:
+          $ref: '#/definitions/domains.PostgresDTO'
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete postgres data
+      tags:
+      - Postgres
   /deleteredis:
     delete:
       consumes:
@@ -107,6 +156,16 @@ paths:
       summary: Read mongo data
       tags:
       - Mongo
+  /readpostgres:
+    get:
+      description: You can read data from postgres database via this endpoint
+      operationId: read-postgres
+      produces:
+      - application/json
+      responses: {}
+      summary: Read postgres data
+      tags:
+      - Postgres
   /readredis:
     get:
       consumes:
@@ -144,6 +203,25 @@ paths:
       summary: Update mongo data
       tags:
       - Mongo
+  /updatepostgres:
+    put:
+      consumes:
+      - application/json
+      description: You can update postgres data via this endpoint
+      operationId: update-postgres
+      parameters:
+      - description: Json for updating data
+        in: body
+        name: JsonExample
+        required: true
+        schema:
+          $ref: '#/definitions/domains.PostgresDTO'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update postgres data
+      tags:
+      - Postgres
   /updateredis:
     put:
       consumes:

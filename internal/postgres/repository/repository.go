@@ -6,6 +6,7 @@ import (
 	"crud/internal/postgres/usecase"
 	"fmt"
 	"log"
+	"strconv"
 
 	"github.com/jackc/pgx/v5"
 )
@@ -43,11 +44,11 @@ func (r *repository) ReadPostgres() ([]models.PostgresData, error) {
 	resultArr := make([]models.PostgresData, 0, count)
 
 	for answer.Next() {
-		var name, author, album string
+		var name, author, album, strLen string
 		var length int
 
-		answer.Scan(&name, &length, &author, &album)
-		fmt.Println(length)
+		answer.Scan(&name, &strLen, &author, &album)
+		length, _ = strconv.Atoi(strLen)
 
 		resultArr = append(resultArr, models.PostgresData{SongName: name, SongLength: length, SongAuthor: author, SongAlbum: album})
 	}

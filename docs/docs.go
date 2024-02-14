@@ -43,6 +43,34 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/createpostgres": {
+            "post": {
+                "description": "You can add data to postgres database via this endpoint",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Postgres"
+                ],
+                "summary": "Create postgres data",
+                "operationId": "create-postgres",
+                "parameters": [
+                    {
+                        "description": "Json for creating data",
+                        "name": "JsonExample",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domains.PostgresDTO"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/createredis": {
             "post": {
                 "description": "You can add data to redis database via this endpoint",
@@ -99,6 +127,34 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/deletepostgres": {
+            "delete": {
+                "description": "You can delete data from postgres database via this endpoint",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Postgres"
+                ],
+                "summary": "Delete postgres data",
+                "operationId": "delete-postgres",
+                "parameters": [
+                    {
+                        "description": "Json for deleting data",
+                        "name": "JsonExample",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domains.PostgresDTO"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/deleteredis": {
             "delete": {
                 "description": "You can delete data from redis database via this endpoint",
@@ -138,6 +194,20 @@ const docTemplate = `{
                 ],
                 "summary": "Read mongo data",
                 "operationId": "read-mongo",
+                "responses": {}
+            }
+        },
+        "/readpostgres": {
+            "get": {
+                "description": "You can read data from postgres database via this endpoint",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Postgres"
+                ],
+                "summary": "Read postgres data",
+                "operationId": "read-postgres",
                 "responses": {}
             }
         },
@@ -195,6 +265,34 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/updatepostgres": {
+            "put": {
+                "description": "You can update postgres data via this endpoint",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Postgres"
+                ],
+                "summary": "Update postgres data",
+                "operationId": "update-postgres",
+                "parameters": [
+                    {
+                        "description": "Json for updating data",
+                        "name": "JsonExample",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domains.PostgresDTO"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/updateredis": {
             "put": {
                 "description": "You can update redis data via this endpoint",
@@ -225,6 +323,23 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "domains.PostgresDTO": {
+            "type": "object",
+            "properties": {
+                "Album": {
+                    "type": "string"
+                },
+                "Author": {
+                    "type": "string"
+                },
+                "Length": {
+                    "type": "integer"
+                },
+                "Name": {
+                    "type": "string"
+                }
+            }
+        },
         "domains.redisDTO": {
             "type": "object",
             "properties": {

@@ -23,6 +23,16 @@ func NewHandler(usecase UsecaseInterfaces) *handler {
 	return &handler{usecase: usecase}
 }
 
+// ShowAccount godoc
+//
+//	@Summary		Create postgres data
+//	@Tags			Postgres
+//	@Description	You can add data to postgres database via this endpoint
+//	@ID				create-postgres
+//	@Accept			json
+//	@Produce		json
+//	@Param			JsonExample	body	PostgresDTO	true	"Json for creating data"
+//	@Router			/createpostgres [post]
 func (h *handler) CreatePostgres(ctx echo.Context) error {
 
 	var data PostgresDTO
@@ -45,6 +55,14 @@ func (h *handler) CreatePostgres(ctx echo.Context) error {
 
 }
 
+// ShowAccount godoc
+//
+//	@Summary		Read postgres data
+//	@Tags			Postgres
+//	@Description	You can read data from postgres database via this endpoint
+//	@ID				read-postgres
+//	@Produce		json
+//	@Router			/readpostgres [get]
 func (h *handler) ReadPostgres(ctx echo.Context) error {
 	rawData, err := h.usecase.ReadPostgres()
 
@@ -55,6 +73,16 @@ func (h *handler) ReadPostgres(ctx echo.Context) error {
 	return ctx.JSON(200, &models.Response{Status: 200, Payload: rawData})
 }
 
+// ShowAccount godoc
+//
+//	@Summary		Update postgres data
+//	@Tags			Postgres
+//	@Description	You can update postgres data via this endpoint
+//	@ID				update-postgres
+//	@Accept			json
+//	@Produce		json
+//	@Param			JsonExample	body	PostgresDTO	true	"Json for updating data"
+//	@Router			/updatepostgres [put]
 func (h *handler) UpdatePostgres(ctx echo.Context) error {
 	var jsonData PostgresDTO
 
@@ -72,6 +100,16 @@ func (h *handler) UpdatePostgres(ctx echo.Context) error {
 	return ctx.JSON(200, &models.Response{Status: 200, Payload: "Update ok"})
 }
 
+// ShowAccount godoc
+//
+//	@Summary		Delete postgres data
+//	@Tags			Postgres
+//	@Description	You can delete data from postgres database via this endpoint
+//	@ID				delete-postgres
+//	@Accept			json
+//	@Produce		json
+//	@Param			JsonExample	body	PostgresDTO	true	"Json for deleting data"
+//	@Router			/deletepostgres [delete]
 func (h *handler) DeletePostgres(ctx echo.Context) error {
 	var jsonData PostgresDTO
 
