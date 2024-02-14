@@ -24,7 +24,7 @@ import (
 //	@version		1.0
 //	@description	Какая-то ебень
 
-//	@host		localhost:5000
+//	@host		localhost:3000
 //	@BasePath	/
 
 func main() {

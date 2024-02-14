@@ -1,5 +1,13 @@
 basePath: /
-host: localhost:5000
+definitions:
+  domains.redisDTO:
+    properties:
+      Key:
+        type: string
+      Value:
+        type: string
+    type: object
+host: localhost:3000
 info:
   contact: {}
   description: Какая-то ебень
@@ -10,16 +18,75 @@ paths:
     post:
       consumes:
       - application/json
-      description: get string by ID
-      operationId: get-string-by-int
+      description: You can add data to redis database via this endpoint
+      operationId: create-redis
       parameters:
-      - description: Account ID
-        in: path
-        name: id
+      - description: Json for creating data
+        in: body
+        name: JsonExample
         required: true
-        type: integer
+        schema:
+          $ref: '#/definitions/domains.redisDTO'
       produces:
       - application/json
       responses: {}
       summary: Create redis data
+      tags:
+      - Redis
+  /deleteredis:
+    delete:
+      consumes:
+      - application/json
+      description: You can delete data from redis database via this endpoint
+      operationId: delete-redis
+      parameters:
+      - description: Json for deleting data
+        in: body
+        name: JsonExample
+        required: true
+        schema:
+          $ref: '#/definitions/domains.redisDTO'
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete redis data
+      tags:
+      - Redis
+  /readredis:
+    get:
+      consumes:
+      - application/json
+      description: You can read data from redis database via this endpoint
+      operationId: read-redis
+      parameters:
+      - description: name search by query
+        in: query
+        name: key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Read redis data
+      tags:
+      - Redis
+  /updateredis:
+    put:
+      consumes:
+      - application/json
+      description: You can update redis data via this endpoint
+      operationId: update-redis
+      parameters:
+      - description: Json for updating data
+        in: body
+        name: JsonExample
+        required: true
+        schema:
+          $ref: '#/definitions/domains.redisDTO'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update redis data
+      tags:
+      - Redis
 swagger: "2.0"

@@ -17,25 +17,125 @@ const docTemplate = `{
     "paths": {
         "/createredis": {
             "post": {
-                "description": "get string by ID",
+                "description": "You can add data to redis database via this endpoint",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Redis"
+                ],
                 "summary": "Create redis data",
-                "operationId": "get-string-by-int",
+                "operationId": "create-redis",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "Account ID",
-                        "name": "id",
-                        "in": "path",
+                        "description": "Json for creating data",
+                        "name": "JsonExample",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domains.redisDTO"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/deleteredis": {
+            "delete": {
+                "description": "You can delete data from redis database via this endpoint",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis"
+                ],
+                "summary": "Delete redis data",
+                "operationId": "delete-redis",
+                "parameters": [
+                    {
+                        "description": "Json for deleting data",
+                        "name": "JsonExample",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domains.redisDTO"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/readredis": {
+            "get": {
+                "description": "You can read data from redis database via this endpoint",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis"
+                ],
+                "summary": "Read redis data",
+                "operationId": "read-redis",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name search by query",
+                        "name": "key",
+                        "in": "query",
                         "required": true
                     }
                 ],
                 "responses": {}
+            }
+        },
+        "/updateredis": {
+            "put": {
+                "description": "You can update redis data via this endpoint",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis"
+                ],
+                "summary": "Update redis data",
+                "operationId": "update-redis",
+                "parameters": [
+                    {
+                        "description": "Json for updating data",
+                        "name": "JsonExample",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domains.redisDTO"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    },
+    "definitions": {
+        "domains.redisDTO": {
+            "type": "object",
+            "properties": {
+                "Key": {
+                    "type": "string"
+                },
+                "Value": {
+                    "type": "string"
+                }
             }
         }
     }
@@ -44,7 +144,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:5000",
+	Host:             "localhost:3000",
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "Жопа",

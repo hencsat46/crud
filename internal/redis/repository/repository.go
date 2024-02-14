@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"crud/internal/redis/usecase"
+	"log"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -24,6 +25,7 @@ func (r *repository) CreateRedis(key, value string) error {
 }
 
 func (r *repository) ReadRedis(key string) (string, error) {
+	log.Println(key)
 	value, err := r.redisConnection.Get(context.Background(), key).Result()
 	if err != nil {
 		return "", err
