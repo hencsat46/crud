@@ -21,6 +21,14 @@ func NewHandler(usecase UsecaseInterfaces) *handler {
 	return &handler{usecase: usecase}
 }
 
+// ShowAccount godoc
+//
+//	@Summary		Read mongo data
+//	@Tags			Mongo
+//	@Description	You can read data from mongo database via this endpoint
+//	@ID				read-mongo
+//	@Produce		json
+//	@Router			/readmongo [get]
 func (h *handler) ReadMongo(ctx echo.Context) error {
 	result, err := h.usecase.ReadMongo()
 
@@ -31,6 +39,16 @@ func (h *handler) ReadMongo(ctx echo.Context) error {
 	return ctx.JSON(200, &models.Response{Status: 200, Payload: result})
 }
 
+// ShowAccount godoc
+//
+//	@Summary		Create mongo data
+//	@Tags			Mongo
+//	@Description	You can add data to mongo database via this endpoint
+//	@ID				create-mongo
+//	@Accept			json
+//	@Produce		json
+//	@Param			JsonExample	body	MongoDTO	true	"Json for creating data"
+//	@Router			/createmongo [post]
 func (h *handler) CreateMongo(ctx echo.Context) error {
 	var rawData MongoDTO
 
@@ -47,6 +65,16 @@ func (h *handler) CreateMongo(ctx echo.Context) error {
 	return ctx.JSON(200, &models.Response{Status: 200, Payload: "Create ok"})
 }
 
+// ShowAccount godoc
+//
+//	@Summary		Update mongo data
+//	@Tags			Mongo
+//	@Description	You can update mongo data via this endpoint
+//	@ID				update-mongo
+//	@Accept			json
+//	@Produce		json
+//	@Param			JsonExample	body	MongoDTO	true	"Json for updating data"
+//	@Router			/updatemongo [put]
 func (h *handler) UpdateMongo(ctx echo.Context) error {
 	var rawData MongoDTO
 
@@ -63,6 +91,16 @@ func (h *handler) UpdateMongo(ctx echo.Context) error {
 	return ctx.JSON(200, &models.Response{Status: 200, Payload: "Update ok"})
 }
 
+// ShowAccount godoc
+//
+//	@Summary		Delete mongo data
+//	@Tags			Mongo
+//	@Description	You can delete data from mongo database via this endpoint
+//	@ID				delete-mongo
+//	@Accept			json
+//	@Produce		json
+//	@Param			JsonExample	body	MongoDTO	true	"Json for deleting data"
+//	@Router			/deletemongo [delete]
 func (h *handler) DeleteMongo(ctx echo.Context) error {
 	var rawData MongoDTO
 

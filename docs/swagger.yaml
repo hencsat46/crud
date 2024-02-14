@@ -7,6 +7,13 @@ definitions:
       Value:
         type: string
     type: object
+  handler.MongoDTO:
+    properties:
+      Key:
+        type: string
+      Value:
+        type: string
+    type: object
 host: localhost:3000
 info:
   contact: {}
@@ -14,6 +21,25 @@ info:
   title: Жопа
   version: "1.0"
 paths:
+  /createmongo:
+    post:
+      consumes:
+      - application/json
+      description: You can add data to mongo database via this endpoint
+      operationId: create-mongo
+      parameters:
+      - description: Json for creating data
+        in: body
+        name: JsonExample
+        required: true
+        schema:
+          $ref: '#/definitions/handler.MongoDTO'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create mongo data
+      tags:
+      - Mongo
   /createredis:
     post:
       consumes:
@@ -33,6 +59,25 @@ paths:
       summary: Create redis data
       tags:
       - Redis
+  /deletemongo:
+    delete:
+      consumes:
+      - application/json
+      description: You can delete data from mongo database via this endpoint
+      operationId: delete-mongo
+      parameters:
+      - description: Json for deleting data
+        in: body
+        name: JsonExample
+        required: true
+        schema:
+          $ref: '#/definitions/handler.MongoDTO'
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete mongo data
+      tags:
+      - Mongo
   /deleteredis:
     delete:
       consumes:
@@ -52,6 +97,16 @@ paths:
       summary: Delete redis data
       tags:
       - Redis
+  /readmongo:
+    get:
+      description: You can read data from mongo database via this endpoint
+      operationId: read-mongo
+      produces:
+      - application/json
+      responses: {}
+      summary: Read mongo data
+      tags:
+      - Mongo
   /readredis:
     get:
       consumes:
@@ -70,6 +125,25 @@ paths:
       summary: Read redis data
       tags:
       - Redis
+  /updatemongo:
+    put:
+      consumes:
+      - application/json
+      description: You can update mongo data via this endpoint
+      operationId: update-mongo
+      parameters:
+      - description: Json for updating data
+        in: body
+        name: JsonExample
+        required: true
+        schema:
+          $ref: '#/definitions/handler.MongoDTO'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update mongo data
+      tags:
+      - Mongo
   /updateredis:
     put:
       consumes:

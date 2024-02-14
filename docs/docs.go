@@ -15,6 +15,34 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/createmongo": {
+            "post": {
+                "description": "You can add data to mongo database via this endpoint",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mongo"
+                ],
+                "summary": "Create mongo data",
+                "operationId": "create-mongo",
+                "parameters": [
+                    {
+                        "description": "Json for creating data",
+                        "name": "JsonExample",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handler.MongoDTO"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/createredis": {
             "post": {
                 "description": "You can add data to redis database via this endpoint",
@@ -37,6 +65,34 @@ const docTemplate = `{
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/domains.redisDTO"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/deletemongo": {
+            "delete": {
+                "description": "You can delete data from mongo database via this endpoint",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mongo"
+                ],
+                "summary": "Delete mongo data",
+                "operationId": "delete-mongo",
+                "parameters": [
+                    {
+                        "description": "Json for deleting data",
+                        "name": "JsonExample",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handler.MongoDTO"
                         }
                     }
                 ],
@@ -71,6 +127,20 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/readmongo": {
+            "get": {
+                "description": "You can read data from mongo database via this endpoint",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mongo"
+                ],
+                "summary": "Read mongo data",
+                "operationId": "read-mongo",
+                "responses": {}
+            }
+        },
         "/readredis": {
             "get": {
                 "description": "You can read data from redis database via this endpoint",
@@ -92,6 +162,34 @@ const docTemplate = `{
                         "name": "key",
                         "in": "query",
                         "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/updatemongo": {
+            "put": {
+                "description": "You can update mongo data via this endpoint",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Mongo"
+                ],
+                "summary": "Update mongo data",
+                "operationId": "update-mongo",
+                "parameters": [
+                    {
+                        "description": "Json for updating data",
+                        "name": "JsonExample",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handler.MongoDTO"
+                        }
                     }
                 ],
                 "responses": {}
@@ -128,6 +226,17 @@ const docTemplate = `{
     },
     "definitions": {
         "domains.redisDTO": {
+            "type": "object",
+            "properties": {
+                "Key": {
+                    "type": "string"
+                },
+                "Value": {
+                    "type": "string"
+                }
+            }
+        },
+        "handler.MongoDTO": {
             "type": "object",
             "properties": {
                 "Key": {
